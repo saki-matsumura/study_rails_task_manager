@@ -1,0 +1,7 @@
+<h2>タイトル：<%= @task.title%></h2>
+<h3>概要</h3>
+<p><%= @task.summary%></p>
+
+<p>
+<%= link_to "編集", edit_task_path %> | <%= link_to "戻る", tasks_path %>
+</p>
