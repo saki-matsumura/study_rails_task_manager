@@ -3,5 +3,7 @@
 ## テーブルスキーマ
 ### model
 - task
-    - title:text
-    - summary:text
+| カラム名 | データ型 |
+| ---- | ---- |
+| title | text |
+| summary | text |
