@@ -128,6 +128,8 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.4-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-linux)
+      racc (~> 1.4)
     pg (1.5.4)
     pry (0.14.2)
       coderay (~> 1.1)
@@ -252,6 +254,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)
@@ -262,6 +265,9 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   launchy
   listen (~> 3.3)
+  net-imap
+  net-pop
+  net-smtp
   pg (~> 1.1)
   pry-rails
   puma (~> 5.0)
