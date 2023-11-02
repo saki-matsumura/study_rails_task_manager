@@ -5,9 +5,9 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '作成したタスクが表示される' do
         # タスクを新規作成する
         visit new_task_path
-        fill_in 'Title', with: 'task_title'
-        fill_in 'Summary', with: 'task_summary'
-        click_on '登録'
+        fill_in 'task[title]', with: 'task_title'
+        fill_in 'task[summary]', with: 'task_summary'
+        click_on '登録する'
         # ページにタスク名と概要が表示されるか確認
         expect(page).to have_content 'task_title'
         expect(page).to have_content 'task_summary'
@@ -17,12 +17,20 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '一覧表示機能' do
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
-        # テスト用のタスクを作成
-        FactoryBot.create(:task, title: 'task_title', summary: 'task_summary')
-        # タスク一覧ページに遷移
-        visit tasks_path
         # 表示内容を確認
+        FactoryBot.create(:task, title: 'task_title', summary: 'task_summary')
+        visit tasks_path
         expect(page).to have_content 'task_title'
+      end
+    end
+    context 'タスクが作成日時の降順に並んでいる場合' do
+      it '一番上に新しいタスクが表示される' do
+        FactoryBot.create(:task, title: 'task_title', summary: 'task_summary')
+        FactoryBot.create(:task, title: 'task_title2', summary: 'task_summary2')
+        visit tasks_path
+        task_list = all('.task_row')
+        # 1行目のタスクが、最後に作成したタスクと一致しているか？
+        expect(task_list[0]).to have_content 'task_title2'
       end
     end
   end
