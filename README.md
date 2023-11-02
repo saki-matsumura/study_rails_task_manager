@@ -2,8 +2,8 @@
 
 ## テーブルスキーマ
 ### model
-- task
+task
 | カラム名 | データ型 |
-| ---- | ---- |
+----|----
 | title | text |
 | summary | text |
