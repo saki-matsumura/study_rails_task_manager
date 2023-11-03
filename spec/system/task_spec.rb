@@ -7,10 +7,12 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit new_task_path
         fill_in 'task[title]', with: 'task_title'
         fill_in 'task[summary]', with: 'task_summary'
+        fill_in 'task[deadline]', with: '002023-11-01'
         click_on '登録する'
         # ページにタスク名と概要が表示されるか確認
         expect(page).to have_content 'task_title'
         expect(page).to have_content 'task_summary'
+        expect(page).to have_content '2023-11-01'
       end
     end
   end
