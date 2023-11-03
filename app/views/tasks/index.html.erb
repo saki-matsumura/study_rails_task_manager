@@ -1,14 +1,16 @@
 <h1>タスク一覧</h1>
-<%= link_to 'タスクを登録する', new_task_path%>
+<%= link_to 'タスクを登録する', new_task_path %>
+<%= link_to "終了期限でソートする", tasks_path(deadline: "true") %>
 <table>
   <tr>
+    <th>index</th>
     <th>タスク名</th>
     <th>概要</th>
     <th>終了期限</th>
   </tr>
   <% @tasks.each do | task | %>
-  <tr class = "task_row">
-    <td><%= task.title %></td>
+  <tr class = "task_row" >
+    <td ><%= task.title %></td>
     <td><%= task.summary %></td>
     <td><%= task.deadline %></td>
     <td><%= link_to '詳細', task_path(task.id) %></td>

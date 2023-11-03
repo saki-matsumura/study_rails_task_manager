@@ -17,22 +17,33 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
   describe '一覧表示機能' do
+    before do
+      FactoryBot.create(:task, title: 'task_title1', summary: 'task_summary1', deadline: '002023-11-10')
+    end
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
-        # 表示内容を確認
-        FactoryBot.create(:task, title: 'task_title', summary: 'task_summary')
         visit tasks_path
-        expect(page).to have_content 'task_title'
+        # 表示内容を確認
+        expect(page).to have_content 'task_title1'
       end
     end
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '一番上に新しいタスクが表示される' do
-        FactoryBot.create(:task, title: 'task_title', summary: 'task_summary')
-        FactoryBot.create(:task, title: 'task_title2', summary: 'task_summary2')
+        FactoryBot.create(:task, title: 'task_title2', summary: 'task_summary2', deadline: '002023-11-10')
         visit tasks_path
         task_list = all('.task_row')
         # 1行目のタスクが、最後に作成したタスクと一致しているか？
         expect(task_list[0]).to have_content 'task_title2'
+      end
+    end
+    context '「終了期限でソート」ボタンを押した場合' do
+      it '終了期限の降順に並び替えられる' do
+        FactoryBot.create(:task, title: 'task_title2', summary: 'task_summary2', deadline: '002023-11-08')
+        FactoryBot.create(:task, title: 'task_title3', summary: 'task_summary3', deadline: '002023-11-07')
+        visit tasks_path
+        click_link '終了期限でソートする'
+        task_list = all('.task_row')
+        expect(task_list[0]).to have_content 'task_title1'
       end
     end
   end
