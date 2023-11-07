@@ -8,7 +8,7 @@ ja:
         summary: 概要
         deadline: 終了期限
         status: ステータス
-  enum:
+  enums:
     task:
       status:
         untouched: 未対応

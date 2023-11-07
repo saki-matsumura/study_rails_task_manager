@@ -8,7 +8,7 @@
   <%= form.submit 'Search', name: nil %>
 <% end %>
 
-<%= select :status, :name, Task.statuses.keys.map { |k| [t("enum.task.status.#{k}"), k] }, include_blank: true %>
+<%= select :status, :name, Task.statuses_i18n.invert, {}, include_blank: true %>
 
 <table>
   <tr>
@@ -22,7 +22,7 @@
     <td ><%= task.title %></td>
     <td><%= task.summary %></td>
     <td><%= task.deadline %></td>
-    <td><%= task.status %></td>
+    <td><%= task.status_i18n %></td>
     <td><%= link_to '詳細', task_path(task.id) %></td>
     <td><%= link_to '編集', edit_task_path(task.id) %></td>
     <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除してよろしですか？'} %></td>
