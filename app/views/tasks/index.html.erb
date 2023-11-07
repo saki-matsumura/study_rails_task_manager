@@ -1,9 +1,12 @@
 <h1>タスク一覧</h1>
 <%= link_to 'タスクを登録する', new_task_path %>
 <%= link_to "終了期限でソートする", tasks_path(deadline: "true") %>
+<%= form_with url: tasks_path, method: :get, local: true do |form| %>
+  <%= form.text_field :search %>
+  <%= form.submit 'Search', name: nil %>
+<% end %>
 <table>
   <tr>
-    <th>index</th>
     <th>タスク名</th>
     <th>概要</th>
     <th>終了期限</th>

@@ -42,6 +42,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         FactoryBot.create(:task, title: 'task_title3', summary: 'task_summary3', deadline: '002023-11-07')
         visit tasks_path
         click_link '終了期限でソートする'
+        sleep 1
         task_list = all('.task_row')
         expect(task_list[0]).to have_content 'task_title1'
       end

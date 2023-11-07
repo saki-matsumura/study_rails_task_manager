@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
     before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    @tasks = Task.default
+    @tasks = Task.all.default
     if params[:deadline]
-      @tasks = Task.deadline
+      @tasks = Task.all.deadline
     end
+    @tasks = @tasks.where('title LIKE ?', "%#{params[:search]}%") if params[:search].present?
   end
 
   def new
