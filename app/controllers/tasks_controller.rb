@@ -5,7 +5,16 @@ class TasksController < ApplicationController
     if params[:deadline]
       @tasks = Task.all.deadline
     end
-    @tasks = @tasks.where('title LIKE ?', "%#{params[:search]}%") if params[:search].present?
+
+    if params[:search]
+      if params[:title_like].present? && params[:status].present?
+        @tasks = Task.where(status: params[:status]).where('title LIKE ?', "%#{params[:title_like]}%")
+      elsif params[:title_like].present?
+        @tasks = Task.where('title LIKE ?', "%#{params[:title_like]}%") 
+      elsif params[:status].present?
+        @tasks = Task.where(status: params[:status])
+      end
+    end
   end
 
   def new
