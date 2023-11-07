@@ -19,6 +19,9 @@
   <%= form.label :deadline %><br>
   <%= form.date_field :deadline %><br>
   <br>
+  <%= form.label :status %><br>
+  <%= form.select :status, {untouched: 'untouched', in_progress: 'in_progress', done: 'done'} %><br>
+  <br>
 
   <%= form.submit %>
 

@@ -6,6 +6,14 @@ ja:
       task:
         title: タイトル
         summary: 概要
+        deadline: 終了期限
+        status: ステータス
+  enum:
+    task:
+      status:
+        untouched: 未対応
+        in_progress: 進行中
+        done: 完了
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

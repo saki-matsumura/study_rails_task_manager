@@ -18,6 +18,9 @@ gem "net-smtp"
 gem "net-imap"
 gem "net-pop"
 
+# 追加：enum用
+gem 'enum_help'
+
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 
