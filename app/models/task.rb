@@ -7,7 +7,8 @@ class Task < ApplicationRecord
   scope :deadline, -> { order(deadline: :desc) }
 
   # フィルター
-  # scope :task_title_like, -> title {}
+  scope :title_like, -> (query) { where("title LIKE ?", '%' + query + '%' ) }
+  scope :status, -> (query){ where(status: query) }
 
   enum status: {
     untouched: 0,    # 未対応
