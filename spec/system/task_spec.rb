@@ -24,19 +24,14 @@ RSpec.describe 'タスク管理機能', type: :system do
         :task, 
           title: 'task_title1',
           summary: 'task_summary',
-          deadline: '002023-11-10'
+          deadline: '002023-11-10',
+          status: 'untouched'
         )
       FactoryBot.create(
         :task,
         title: 'task_title2', 
         summary: 'task_summary', 
-        deadline: '002023-11-08'
-        )
-      FactoryBot.create(
-        :task,
-        title: 'task_title3', 
-        summary: 'task_summary', 
-        deadline: '002023-11-07',
+        deadline: '002023-11-08',
         status: 'in_progress'
         )
       FactoryBot.create(
@@ -52,13 +47,6 @@ RSpec.describe 'タスク管理機能', type: :system do
           summary: 'task_summary', 
           deadline: '002023-11-07',
           status: 'done'
-        )
-      FactoryBot.create(
-        :task, 
-          title: 'task_title_search3', 
-          summary: 'task_summary', 
-          deadline: '002023-11-07',
-          status: 'in_progress'
         )
     end
     context '一覧画面に遷移した場合' do
