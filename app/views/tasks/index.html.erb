@@ -4,9 +4,9 @@
 <%= link_to "終了期限でソートする", tasks_path(deadline: "true") %>
 
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
-  <%= form.text_field :title_like %>
-  <%= form.select(:status, Task.statuses_i18n.invert, {include_blank: true}) %>
-  <%= form.submit '検索', name: 'search' %>
+  <p>タイトル <%= form.text_field :title_like %>　
+  ステータス <%= form.select(:status, Task.statuses_i18n.invert, {include_blank: true}) %>　
+  <%= form.submit '検索', name: 'search' %></p>
 <% end %>
 
 <table>
