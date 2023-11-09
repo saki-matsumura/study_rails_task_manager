@@ -22,4 +22,29 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+  describe '検索機能のテスト' do
+    let!(:task) { FactoryBot.create(:task, title: 'task', status: 'in_progress') }
+    let!(:second_task) { FactoryBot.create(:second_task, title: 'sample', status: 'done') }
+    context 'scopeメソッドでタイトルのあいまい検索をした場合' do
+      it "検索キーワードを含むタスクが絞り込まれる" do
+        expect(Task.title_like('task')).to include(task)
+        expect(Task.title_like('task')).not_to include(second_task)
+        expect(Task.title_like('task').count).to eq 1
+      end
+    end
+    context 'scopeメソッドでステータス検索をした場合' do
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        expect(Task.status('in_progress')).to include(task)
+        expect(Task.status('in_progress')).not_to include(second_task)
+        expect(Task.status('in_progress').count).to eq 1
+      end
+    end
+    context 'scopeメソッドでタイトルのあいまい検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+        expect(Task.title_like('task').status('in_progress')).to include(task)
+        expect(Task.title_like('task').status('in_progress')).not_to include(second_task)
+        expect(Task.title_like('task').status('in_progress').count).to eq 1
+      end
+    end
+  end
 end
