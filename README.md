@@ -9,6 +9,7 @@ task
 | summary | text |
 | deadline | date |
 | status | integer |
+| priority | integer |
 
 ## デプロイ方法
 - Herokuのバージョンを20へ切り替える
@@ -27,3 +28,5 @@ task
 - net-smtp
 - net-imap
 - net-pop
+- enum_help
+- kaminari
