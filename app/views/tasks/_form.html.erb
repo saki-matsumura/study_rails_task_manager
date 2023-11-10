@@ -26,5 +26,9 @@
   <%= form.select(:status, Task.statuses_i18n.invert, {}, include_blank: true) %> 
   </p>
 
+  <p><b><%= form.label :priority %>：</b>
+  <%= form.select(:priority, Task.priorities_i18n.invert, {}, include_blank: true) %> 
+  </p>
+
   <%= form.submit %>
 <% end %>

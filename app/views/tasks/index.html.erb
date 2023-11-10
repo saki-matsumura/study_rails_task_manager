@@ -14,6 +14,7 @@
     <th>概要</th>
     <th><%= link_to "終了期限", tasks_path(deadline: "true"), class: "link_color" %></th>
     <th>ステータス</th>
+    <th><%= link_to "優先度", tasks_path(priority: "true"), class: "link_color" %></th>
   </tr>
   <% @tasks.each do | task | %>
   <tr class = "task_row" >
@@ -21,6 +22,7 @@
     <td><%= task.summary %></td>
     <td><%= task.deadline %></td>
     <td><%= task.status_i18n %></td>
+    <td><%= task.priority_i18n %></td>
     <td class="task_nav"><%= link_to '詳細', task_path(task.id), class: "btn btn-outline-primary" %></td>
     <td class="task_nav"><%= link_to '編集', edit_task_path(task.id), class: "btn btn-outline-success" %></td>
     <td class="task_nav"><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除してよろしですか？'}, class: "btn btn-outline-danger" %></td>

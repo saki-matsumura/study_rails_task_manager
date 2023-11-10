@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_07_015359) do
+ActiveRecord::Schema.define(version: 2023_11_10_024706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2023_11_07_015359) do
     t.datetime "updated_at", precision: 6, null: false
     t.date "deadline", default: -> { "(now() + 'P7D'::interval)" }, null: false
     t.integer "status", limit: 2, default: 0, null: false
+    t.integer "priority", limit: 2, default: 1, null: false
   end
 
 end

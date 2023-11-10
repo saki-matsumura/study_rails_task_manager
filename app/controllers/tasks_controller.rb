@@ -5,6 +5,9 @@ class TasksController < ApplicationController
     if params[:deadline]
       @tasks = Task.all.deadline
     end
+    if params[:priority]
+      @tasks = Task.all.priority
+    end
 
     if params[:search]
       if params[:title_like].present? && params[:status].present?
@@ -60,7 +63,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :summary, :deadline, :status)
+    params.require(:task).permit(:title, :summary, :deadline, :status, :priority)
   end
 
   def set_task

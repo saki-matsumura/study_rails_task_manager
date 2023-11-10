@@ -14,6 +14,10 @@ ja:
         untouched: 未対応
         in_progress: 進行中
         done: 完了
+      priority:
+        high: 高
+        normal: 中
+        row: 低
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
