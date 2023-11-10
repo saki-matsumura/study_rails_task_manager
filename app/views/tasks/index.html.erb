@@ -1,17 +1,33 @@
+<div class="task_index">
 <h1>タスク一覧</h1>
-<%= link_to 'タスクを登録する', new_task_path%>
+<%= form_with url: tasks_path, method: :get, local: true do |form| %>
+  <p>タイトル <%= form.text_field :title_like %>　
+  ステータス <%= form.select(:status, Task.statuses_i18n.invert, {include_blank: true}) %>　
+  <%= form.submit '検索', name: 'search' %></p>
+<% end %>
+
+<%= link_to '新規作成', new_task_path, class: "btn btn-primary" %>
+
 <table>
   <tr>
-    <th>タスク名</th>
+    <th>タイトル</th>
     <th>概要</th>
+    <th><%= link_to "終了期限", tasks_path(deadline: "true"), class: "link_color" %></th>
+    <th>ステータス</th>
+    <th><%= link_to "優先度", tasks_path(priority: "true"), class: "link_color" %></th>
   </tr>
   <% @tasks.each do | task | %>
-  <tr class = "task_row">
+  <tr class = "task_row" >
     <td><%= task.title %></td>
     <td><%= task.summary %></td>
-    <td><%= link_to '詳細', task_path(task.id) %></td>
-    <td><%= link_to '編集', edit_task_path(task.id) %></td>
-    <td><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除してよろしですか？'} %></td>
+    <td><%= task.deadline %></td>
+    <td><%= task.status_i18n %></td>
+    <td><%= task.priority_i18n %></td>
+    <td class="task_nav"><%= link_to '詳細', task_path(task.id), class: "btn btn-outline-primary" %></td>
+    <td class="task_nav"><%= link_to '編集', edit_task_path(task.id), class: "btn btn-outline-success" %></td>
+    <td class="task_nav"><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除してよろしですか？'}, class: "btn btn-outline-danger" %></td>
   </tr>
   <% end %>
 </table>
+<%= paginate @tasks %>
+</div>

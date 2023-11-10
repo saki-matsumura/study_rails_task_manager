@@ -10,13 +10,25 @@
     </div>
   <% end %>
 
-  <%= form.label :title %><br>
+  <p><b><%= form.label :title %></b><br>
   <%= form.text_field :title %><br>
-  <br>
-  <%= form.label :summary %><br>
+  </p>
+
+  <p><b><%= form.label :summary %></b><br>
   <%= form.text_area :summary %><br>
-  <br>
+  </p>
+
+  <p><b><%= form.label :deadline %>：</b>
+  <%= form.date_field :deadline %>
+  </p>
+
+  <p><b><%= form.label :status %>：</b>
+  <%= form.select(:status, Task.statuses_i18n.invert, {}, include_blank: true) %> 
+  </p>
+
+  <p><b><%= form.label :priority %>：</b>
+  <%= form.select(:priority, Task.priorities_i18n.invert, {}, include_blank: true) %> 
+  </p>
 
   <%= form.submit %>
-
 <% end %>

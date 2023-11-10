@@ -18,6 +18,12 @@ gem "net-smtp"
 gem "net-imap"
 gem "net-pop"
 
+# 追加：enum用
+gem 'enum_help'
+
+# 追加：ページテーション
+gem 'kaminari'
+
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 
@@ -26,6 +32,8 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "launchy"
+
+  # gem "pry-rails"
 end
 
 group :development do

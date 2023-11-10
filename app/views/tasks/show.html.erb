@@ -1,7 +1,16 @@
-<h2>タイトル：<%= @task.title%></h2>
-<h3>概要</h3>
-<p><%= @task.summary%></p>
+<p><b>タイトル</b><br>
+<%= @task.title%></p>
+<p><b>概要</b><br>
+<%= @task.summary %></p>
+<p><b>終了期限：</b>
+<%= @task.deadline %></p>
+<p><b>ステータス：</b>
+<%= @task.status_i18n %></p>
+<p><b>優先度：</b>
+<%= @task.priority_i18n %></p>
 
+<div class="bottom_menu">
 <p>
 <%= link_to "編集", edit_task_path %> | <%= link_to "戻る", tasks_path %>
 </p>
+</div>

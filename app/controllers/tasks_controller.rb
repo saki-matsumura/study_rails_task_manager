@@ -1,7 +1,25 @@
 class TasksController < ApplicationController
     before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.default
+    if params[:deadline]
+      @tasks = Task.all.deadline
+    end
+    if params[:priority]
+      @tasks = Task.all.priority
+    end
+
+    if params[:search]
+      if params[:title_like].present? && params[:status].present?
+        @tasks = Task.title_like(params[:title_like]).status(params[:status])
+      elsif params[:title_like].present?
+        @tasks = Task.title_like(params[:title_like])
+      elsif params[:status].present?
+        @tasks = Task.status(params[:status])
+      end
+    end
+    
+    @tasks = @tasks.page(params[:page])
   end
 
   def new
@@ -33,7 +51,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: "タスクを編集しました"
+      redirect_to task_path(@task), notice: "タスクを編集しました"
     else
       render :edit
     end
@@ -47,7 +65,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :summary)
+    params.require(:task).permit(:title, :summary, :deadline, :status, :priority)
   end
 
   def set_task

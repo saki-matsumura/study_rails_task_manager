@@ -1,0 +1,58 @@
+// リンクの設定をリセット
+.link, a:hover, a {
+  text-decoration: none;
+  color: #000;
+}
+
+// ヘッダー
+header{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 60px;
+  background-color: #e0e0e0;
+  position: sticky;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+header h1{
+  font-size: x-large;
+  float: left;
+}
+
+nav ul{
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  text-align: right;
+  float: right;
+}
+
+nav ul li{
+  list-style-type: none;
+  padding: 10px;
+}
+
+nav li{
+  float: left;
+}
+
+nav a {
+  display: block;
+}
+
+.global_menu{
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+// コンテンツ
+.contents{
+  width: 980px;
+  margin: 0 auto;
+  margin-top: 20px;
+  position: relative;
+  min-height: 100%;
+}
