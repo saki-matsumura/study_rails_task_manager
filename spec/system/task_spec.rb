@@ -25,7 +25,8 @@ RSpec.describe 'タスク管理機能', type: :system do
           title: 'task_title1',
           summary: 'task_summary',
           deadline: '002023-11-10',
-          status: 'untouched'
+          status: 'untouched',
+          priority: 'high'
         )
       FactoryBot.create(
         :task,
@@ -72,6 +73,15 @@ RSpec.describe 'タスク管理機能', type: :system do
         sleep 1
         task_list = all('.task_row')
         expect(task_list[0]).to have_content 'task_title1'
+      end
+    end
+    context '「優先度」ボタンを押した場合' do
+      it '優先度の降順に並び替えられる' do
+        visit tasks_path
+        click_link '優先度'
+        sleep 1
+        task_list = all('.task_row')
+        expect(task_list[0]).to have_content '高'
       end
     end
     context '検索ワードを入力し、「検索」ボタンを押した場合' do
