@@ -65,10 +65,10 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[0]).to have_content 'new_task'
       end
     end
-    context '「終了期限でソート」ボタンを押した場合' do
+    context '「終了期限」ボタンを押した場合' do
       it '終了期限の降順に並び替えられる' do
         visit tasks_path
-        click_link '終了期限でソートする'
+        click_link '終了期限'
         sleep 1
         task_list = all('.task_row')
         expect(task_list[0]).to have_content 'task_title1'

@@ -6,3 +6,61 @@
 .field_with_errors {
   display: contents;
 }
+
+
+
+//　————————————————————
+// 汎用カラー
+//　————————————————————
+// $colors: (
+//   link: #3B79D4
+// );
+
+//　————————————————————
+// 一覧画面
+//　————————————————————
+
+// 表デザイン
+
+table{
+  min-width:980px;
+  margin-top: 20px;
+}
+
+.task_index th, .task_index td {
+  padding: 10px;
+}
+
+.task_index tr {
+  border-top: 1px solid #ccc;
+}
+
+.task_index tr:last-child {
+  border-bottom: 1px solid #ccc;
+}
+
+.link_color{
+  color: #3B79D4;
+}
+
+.link_color:hover {
+  color: #3B79D4;
+  opacity: 0.5 ;
+}
+
+.task_nav{
+  max-width:45px;
+  min-width:45px;
+}
+
+.task_nav a{
+  max-width: 60px;
+  min-width: 60px;
+}
+
+// ————————————————————
+// 新規作成・編集・詳細
+// ————————————————————
+.bottom_menu{
+  margin-top: 20px;
+}

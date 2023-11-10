@@ -10,19 +10,21 @@
     </div>
   <% end %>
 
-  <%= form.label :title %><br>
+  <p><b><%= form.label :title %></b><br>
   <%= form.text_field :title %><br>
-  <br>
-  <%= form.label :summary %><br>
+  </p>
+
+  <p><b><%= form.label :summary %></b><br>
   <%= form.text_area :summary %><br>
-  <br>
-  <%= form.label :deadline %><br>
-  <%= form.date_field :deadline %><br>
-  <br>
-  <%= form.label :status %><br>
+  </p>
+
+  <p><b><%= form.label :deadline %>：</b>
+  <%= form.date_field :deadline %>
+  </p>
+
+  <p><b><%= form.label :status %>：</b>
   <%= form.select(:status, Task.statuses_i18n.invert, {}, include_blank: true) %> 
-  <br>
+  </p>
 
   <%= form.submit %>
-
 <% end %>
