@@ -1,12 +1,12 @@
 class TasksController < ApplicationController
     before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    @tasks = Task.all.default
+    @tasks = Task.all.default.page(params[:page]).per(3)
     if params[:deadline]
-      @tasks = Task.all.deadline
+      @tasks = Task.all.deadline.page(params[:page]).per(3)
     end
     if params[:priority]
-      @tasks = Task.all.priority
+      @tasks = Task.all.priority.page(params[:page]).per(3)
     end
 
     if params[:search]

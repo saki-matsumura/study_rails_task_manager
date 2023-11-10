@@ -21,6 +21,9 @@ gem "net-pop"
 # 追加：enum用
 gem 'enum_help'
 
+# 追加：ページテーション
+gem 'kaminari'
+
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 
