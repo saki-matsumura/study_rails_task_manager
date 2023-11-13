@@ -19,6 +19,12 @@ class UsersController < ApplicationController
 
   def show
     @tasks = Task.my_task(@user.id)
+    if params[:deadline]
+      @tasks = Task.my_task(@user.id).deadline
+    end
+    if params[:priority]
+      @tasks = Task.my_task(@user.id).priority
+    end
   end
 
   def edit
@@ -41,7 +47,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password,
-                                 :password_confirmation)
+                                 :password_confirmation, :roll)
   end
   
   def set_user

@@ -3,17 +3,17 @@
 <%= render 'error' %>
 
 <%= form_with(model: @user, local: true) do |f| %>  
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <p><b><%= f.label :name %>：</b>
+  <%= f.text_field :name %></p>
 
-  <%= f.label :email %>
-  <%= f.email_field :email %>
+  <p><b><%= f.label :email %>：</b>
+  <%= f.email_field :email %></p>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
+  <p><b><%= f.label :password %>：</b>
+  <%= f.password_field :password %></p>
 
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %>
+  <p><b><%= f.label :password_confirmation %>：</b>
+  <%= f.password_field :password_confirmation %></p>
 
   <%= f.submit "Create my account" %>
 <% end %>

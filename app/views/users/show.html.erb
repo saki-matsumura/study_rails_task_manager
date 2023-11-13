@@ -2,13 +2,15 @@
 
 <p>メールアドレス: <%= @user.email %></p>
 
+<%= link_to 'ユーザー編集', edit_user_path(@user.id), class: "btn btn-outline-success" %>
+
 <table>
   <tr>
     <th>タイトル</th>
     <th>概要</th>
-    <th><%= link_to "終了期限", tasks_path(deadline: "true"), class: "link_color" %></th>
+    <th><%= link_to "終了期限", user_path(@user.id, deadline: "true"), class: "link_color" %></th>
     <th>ステータス</th>
-    <th><%= link_to "優先度", tasks_path(priority: "true"), class: "link_color" %></th>
+    <th><%= link_to "優先度", user_path(@user.id, priority: "true"), class: "link_color" %></th>
     <th>作成者</th>
   </tr>
   <% @tasks.each do | task | %>

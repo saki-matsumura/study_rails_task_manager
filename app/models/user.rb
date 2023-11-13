@@ -10,4 +10,9 @@ class User < ApplicationRecord
 
   has_secure_password
   validates :password, length: { minimum: 6 }, on: :create
+
+  enum roll: {
+    general: 0,  # 一般
+    admin: 1,    # 管理者
+  }
 end
