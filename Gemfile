@@ -35,8 +35,8 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "launchy"
-
-  # gem "pry-rails"
+  # テストデバッグ
+  gem "pry-rails"
 end
 
 group :development do
@@ -45,7 +45,7 @@ group :development do
   gem "listen", "~> 3.3"
   gem "spring"
   # 追加：デバッグ用
-  gem "pry-rails"
+  # gem "pry-rails"
 end
 
 group :test do
