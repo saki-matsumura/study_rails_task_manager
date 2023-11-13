@@ -1,10 +1,6 @@
 class User < ApplicationRecord
-#   has_many :posts
-#   has_many :favorites, dependent: :destroy
-#   has_many :postconfirms
+  has_many :tasks
 
-  # mount_uploader :icon, IconUploader
-  
   validates :name, presence: true, length: { maximum: 30 }
   
   before_validation { email.downcase! }
@@ -14,6 +10,4 @@ class User < ApplicationRecord
 
   has_secure_password
   validates :password, length: { minimum: 6 }, on: :create
-#   validates :icon, presence: true
-  
 end

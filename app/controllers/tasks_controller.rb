@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
-    before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  
   def index
     @tasks = Task.all.default
     if params[:deadline]
@@ -24,9 +25,9 @@ class TasksController < ApplicationController
 
   def new
     if params[:back]
-      @task = Task.new(task_params)
+      @task = current_user.tasks.build(task_params)
     else
-      @task = Task.new
+      @task = current_user.tasks.build
     end
   end
 
@@ -34,7 +35,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     else
