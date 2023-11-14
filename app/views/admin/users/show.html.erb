@@ -1,0 +1,11 @@
+<h1 class="admin">ユーザー詳細</h1>
+
+<p>ユーザー名　　: <%= @managed_user.name %></p>
+<p>メールアドレス: <%= @managed_user.email %></p>
+
+
+<div class="bottom_menu">
+<p>
+<%= link_to "編集", edit_admin_user_path %> | <%= link_to "戻る", admin_users_path %>
+</p>
+</div>

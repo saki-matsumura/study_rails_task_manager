@@ -55,10 +55,10 @@ RSpec.describe 'ユーザー管理機能', type: :system do
         fill_in 'session[password]', with: 'password1'
         click_on 'Log in'
     end
-    context 'ログインした状態でユーザー情報ボタンを押した場合' do
+    context 'ログインした状態でマイページボタンを押した場合' do
       it 'マイページに遷移する' do
         visit tasks_path
-        click_on 'ユーザー情報'
+        click_on 'マイページ'
         expect(current_path).to eq(user_path(User.first))
       end
     end

@@ -3,21 +3,16 @@ class TasksController < ApplicationController
   
   def index
     @tasks = Task.all.default
-    if params[:deadline]
-      @tasks = Task.all.deadline
-    end
-    if params[:priority]
-      @tasks = Task.all.priority
-    end
+    
+    # ソート
+    @tasks = Task.all.deadline if params[:deadline]
+    @tasks = Task.all.priority if params[:priority]
 
+    # フィルター
     if params[:search]
-      if params[:title_like].present? && params[:status].present?
-        @tasks = Task.title_like(params[:title_like]).status(params[:status])
-      elsif params[:title_like].present?
-        @tasks = Task.title_like(params[:title_like])
-      elsif params[:status].present?
-        @tasks = Task.status(params[:status])
-      end
+      @tasks = Task.all.default
+      @tasks = @tasks.title_like(params[:title_like]) if params[:title_like].present?
+      @tasks = @tasks.status(params[:status]) if params[:status].present?
     end
     
     @tasks = @tasks.page(params[:page])

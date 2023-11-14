@@ -1,17 +1,4 @@
 <h1>ユーザ編集</h1>
 
-<%= render 'error' %>
-
-<%= form_with(model: @user, local: true) do |f| %>  
-  <p><b><%= f.label :name %>：</b>
-  <%= f.text_field :name %></p>
-
-  <p><b><%= f.label :email %>：</b>
-  <%= f.email_field :email %></p>
-
-  <p><b><%= f.label :roll %>：</b>
-  <%= f.select(:roll, User.rolls_i18n.invert, {}) %> </p>
-
-  <%= f.submit "更新する" %>
-<% end %>
+<%= render 'form' %>
 
