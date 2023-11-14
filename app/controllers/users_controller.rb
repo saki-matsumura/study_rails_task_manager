@@ -32,11 +32,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if @user == current_user
       render "edit"
-    else
-      redirect_to user_path(current_user)
-    end
   end
 
   def update
@@ -51,7 +47,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password,
-                                 :password_confirmation, :roll])
+                                 :password_confirmation, :roll)
   end
   
   def set_user
@@ -59,6 +55,9 @@ class UsersController < ApplicationController
   end
 
   def back_to_index
-    redirect_to tasks_path if current_user != @user
+    if current_user != @user
+      return if current_user.roll == 'admin'
+      redirect_to tasks_path 
+    end
   end
 end

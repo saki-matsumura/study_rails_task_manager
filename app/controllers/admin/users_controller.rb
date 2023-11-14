@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:destroy]
   before_action :exclude_general
   
   def index
@@ -20,25 +20,11 @@ class Admin::UsersController < ApplicationController
       render :new
     else
       if @managed_user.save
-        redirect_to admin_user_path(@managed_user), notice: "新規ユーザーを登録しました"
+        redirect_to user_path(@managed_user), notice: "新規ユーザーを登録しました"
       else
         render :new
       end
     end
-  end
-  
-  def edit
-  end
-
-  def update
-    if @managed_user.update(user_params)
-      redirect_to admin_user_path(@managed_user), notice: "ユーザー情報を編集しました"
-    else
-      render :edit
-    end
-  end
-
-  def show
   end
 
   def destroy
