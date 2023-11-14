@@ -22,5 +22,8 @@
   <p><b><%= f.label :password_confirmation %>：</b>
   <%= f.password_field :password_confirmation %></p>
 
+  <p><b><%= f.label :roll %>：</b>
+  <%= f.select(:roll, User.rolls_i18n.invert, {}) %> </p>
+
   <%= f.submit %>
 <% end %>

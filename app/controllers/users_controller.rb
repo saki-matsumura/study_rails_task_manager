@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      if current_user.admin?
+      if logged_in? && current_user.admin?
         redirect_to admin_user_path(@user.id)
       else
         session[:user_id] = @user.id   # ユーザー作成時にログイン
@@ -33,7 +33,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-      # render "edit"
   end
 
   def update
@@ -48,7 +47,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password,
-                                 :password_confirmation, :roll)
+                                 :password_confirmation)
   end
   
   def set_user
@@ -57,7 +56,6 @@ class UsersController < ApplicationController
 
   def back_to_index
     if current_user != @user
-      return if current_user.roll == 'admin'
       redirect_to tasks_path 
     end
   end

@@ -1,35 +1,6 @@
 <h1 class="admin">ユーザー作成</h1>
 
-<%= form_with(model: @managed_user, local: true, url: admin_users_path) do |f| %>  
-   <% if @managed_user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@managed_user.errors.count, "error") %> prohibited this <%= @managed_user.name %> from being saved:</h2>
-      <ul>
-        <% @managed_user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <p><b><%= f.label :name %>：</b>
-  <%= f.text_field :name %></p>
-
-  <p><b><%= f.label :email %>：</b>
-  <%= f.email_field :email %></p>
-
-  <p><b><%= f.label :password %>：</b>
-  <%= f.password_field :password %></p>
-
-  <p><b><%= f.label :password_confirmation %>：</b>
-  <%= f.password_field :password_confirmation %></p>
-
-  <p><b><%= f.label :roll %>：</b>
-  <%= f.select(:roll, User.rolls_i18n.invert, {}) %> </p>
-
-  <%= f.submit %>
-
-<% end %>
+<%= render 'form' %>
 
 <div class="bottom_menu">
 <p>
