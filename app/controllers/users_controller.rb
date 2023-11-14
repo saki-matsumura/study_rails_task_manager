@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :back_to_index, only: [:show, :edit, :update]
 
   def new
+    return redirect_to tasks_path if logged_in?
     @user = User.new
   end
 
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-      render "edit"
+      # render "edit"
   end
 
   def update
