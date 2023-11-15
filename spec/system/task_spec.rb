@@ -1,14 +1,27 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   describe '新規作成機能' do
+    before do
+      @user = FactoryBot.create(
+        :user, 
+          name: 'user1',
+          email: 'user1@xmail.com',
+          password: 'password1',
+          roll: 'admin'
+        )
+      visit new_session_path
+      login(@user)
+    end
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
+        
         # タスクを新規作成する
         visit new_task_path
         fill_in 'task[title]', with: 'task_title'
         fill_in 'task[summary]', with: 'task_summary'
         fill_in 'task[deadline]', with: '002023-11-01'
         select '未対応', from: 'ステータス'
+        
         click_on '登録する'
         # ページにタスク名と概要が表示されるか確認
         expect(page).to have_content 'task_title'
@@ -20,34 +33,49 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
   describe '一覧表示機能' do
     before do
+      @user = FactoryBot.create(
+        :user, 
+          name: 'user1',
+          email: 'user1@xmail.com',
+          password: 'password1',
+          roll: 'admin'
+        )
+
+      visit new_session_path
+      login(@user)
+
       FactoryBot.create(
         :task, 
           title: 'task_title1',
           summary: 'task_summary',
           deadline: '002023-11-10',
           status: 'untouched',
-          priority: 'high'
+          priority: 'high',
+          user_id: @user.id
         )
       FactoryBot.create(
         :task,
-        title: 'task_title2', 
-        summary: 'task_summary', 
-        deadline: '002023-11-08',
-        status: 'in_progress'
+          title: 'task_title2', 
+          summary: 'task_summary', 
+          deadline: '002023-11-08',
+          status: 'in_progress',
+          user_id: @user.id
         )
       FactoryBot.create(
         :task, 
           title: 'task_title_search1', 
           summary: 'task_summary', 
           deadline: '002023-11-07',
-          status: 'in_progress'
+          status: 'in_progress',
+          user_id: @user.id
         )
       FactoryBot.create(
         :task, 
           title: 'task_title_search2', 
           summary: 'task_summary', 
           deadline: '002023-11-07',
-          status: 'done'
+          status: 'done',
+          user_id: @user.id
         )
     end
     context '一覧画面に遷移した場合' do
@@ -59,7 +87,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '一番上に新しいタスクが表示される' do
-        FactoryBot.create(:task, title: 'new_task', summary: 'task_summary', deadline: '002023-11-10')
+        FactoryBot.create(:task, title: 'new_task', summary: 'task_summary', deadline: '002023-11-10', user_id: @user.id)
         visit tasks_path
         task_list = all('.task_row')
         # 1行目のタスクが、最後に作成したタスクと一致しているか？
@@ -126,7 +154,17 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '詳細表示機能' do
     before do
       # テスト用のタスクを作成
-      FactoryBot.create(:task, title: 'task_title', summary: 'task_summary')
+      @user = FactoryBot.create(
+        :user, 
+          name: 'user1',
+          email: 'user1@xmail.com',
+          password: 'password1',
+          roll: 'admin'
+        )
+
+      visit new_session_path
+      login(@user)
+      FactoryBot.create(:task, title: 'task_title', summary: 'task_summary', user_id: @user.id)
     end
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do
