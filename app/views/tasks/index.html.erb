@@ -26,8 +26,10 @@
     <td><%= task.priority_i18n %></td>
     <td><%= task.user.name %></td>
     <td class="task_nav"><%= link_to '詳細', task_path(task.id), class: "btn btn-outline-primary" %></td>
-    <td class="task_nav"><%= link_to '編集', edit_task_path(task.id), class: "btn btn-outline-success" %></td>
-    <td class="task_nav"><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除してよろしですか？'}, class: "btn btn-outline-danger" %></td>
+    <% if task.user_id == current_user.id %>
+      <td class="task_nav"><%= link_to '編集', edit_task_path(task.id), class: "btn btn-outline-success" %></td>
+      <td class="task_nav"><%= link_to '削除', task_path(task.id), method: :delete ,data: { confirm: '本当に削除してよろしですか？'}, class: "btn btn-outline-danger" %></td>
+    <% end %>
   </tr>
   <% end %>
 </table>

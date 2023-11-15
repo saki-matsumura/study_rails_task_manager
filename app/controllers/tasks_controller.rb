@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :back_to_index, only: [:edit, :update, :destroy]
   
   def index
     @tasks = Task.all.default
@@ -66,6 +67,11 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def back_to_index
+    # 自分以外のユーザーが編集・削除しようとするとタスク一覧画面に遷移
+    redirect_to tasks_path if current_user != @user
   end
 
 end

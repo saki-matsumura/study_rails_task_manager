@@ -55,8 +55,6 @@ class UsersController < ApplicationController
   end
 
   def back_to_index
-    if current_user != @user
-      redirect_to tasks_path 
-    end
+    redirect_to tasks_path if current_user != @user
   end
 end
