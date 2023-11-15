@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  # before_action :exclude_general
+  before_action :exclude_general
   
   def index
     @users = User.all.page(params[:page])

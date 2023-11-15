@@ -57,7 +57,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
       it 'マイページに遷移する' do
         visit tasks_path
         click_on 'マイページ'
-        expect(current_path).to eq(user_path(User.first))
+        expect(current_path).to eq(user_path(User.last))
       end
     end
     context 'ログインした状態で、自分以外のユーザー詳細にアクセスした場合' do
@@ -107,7 +107,6 @@ RSpec.describe 'ユーザー管理機能', type: :system do
         expect(current_path).to eq admin_users_path
       end
     end
-    
     context '管理ユーザーが新規ユーザーを作成した場合' do
       it 'ユーザーを作成できる' do
         visit new_admin_user_path
@@ -129,21 +128,20 @@ RSpec.describe 'ユーザー管理機能', type: :system do
       it '編集した内容が反映される' do
         visit edit_admin_user_path(User.last)
         fill_in 'user[name]', with: 'change_user_name'
-        # fill_in 'user[email]', with: 'change_user@xmail.com'
-        # fill_in 'user[password]', with: 'change_password'
-        # fill_in 'user[password_confirmation]', with: 'change_password'
-        # select '管理者', from: '権限'
-        binding.irb
+        fill_in 'user[email]', with: 'change_user@xmail.com'
+        select '管理者', from: '権限'
         click_on '更新する'
-        expect(page).to have_content 'change_user_name'
-        # expect(User.last.name).to eq 'change_user_name'
+        expect(User.last.name).to eq 'change_user_name'
+        expect(User.last.email).to eq 'change_user@xmail.com'
+        expect(User.last.roll).to eq 'admin'
       end
     end
     context '管理ユーザーがユーザーを削除した場合' do
-      fit '削除できる' do
+      it '削除できる' do
         visit admin_users_path
         all('.task_row')[1].click_link '削除'
         page.driver.browser.switch_to.alert.accept
+        sleep 1
         expect(User.count).to eq 1
       end
     end

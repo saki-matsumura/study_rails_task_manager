@@ -16,11 +16,13 @@
   <p><b><%= f.label :email %>：</b>
   <%= f.email_field :email %></p>
 
+  <% if action_name == "new" %>
   <p><b><%= f.label :password %>：</b>
   <%= f.password_field :password %></p>
 
   <p><b><%= f.label :password_confirmation %>：</b>
   <%= f.password_field :password_confirmation %></p>
+  <% end %>
 
   <p><b><%= f.label :roll %>：</b>
   <%= f.select(:roll, User.rolls_i18n.invert, {}) %> </p>
