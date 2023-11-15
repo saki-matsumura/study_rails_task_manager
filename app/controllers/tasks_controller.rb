@@ -1,22 +1,19 @@
 class TasksController < ApplicationController
-    before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :back_to_index, only: [:edit, :update, :destroy]
+  
   def index
     @tasks = Task.all.default
-    if params[:deadline]
-      @tasks = Task.all.deadline
-    end
-    if params[:priority]
-      @tasks = Task.all.priority
-    end
+    
+    # ソート
+    @tasks = Task.all.deadline if params[:deadline]
+    @tasks = Task.all.priority if params[:priority]
 
+    # フィルター
     if params[:search]
-      if params[:title_like].present? && params[:status].present?
-        @tasks = Task.title_like(params[:title_like]).status(params[:status])
-      elsif params[:title_like].present?
-        @tasks = Task.title_like(params[:title_like])
-      elsif params[:status].present?
-        @tasks = Task.status(params[:status])
-      end
+      @tasks = Task.all.default
+      @tasks = @tasks.title_like(params[:title_like]) if params[:title_like].present?
+      @tasks = @tasks.status(params[:status]) if params[:status].present?
     end
     
     @tasks = @tasks.page(params[:page])
@@ -24,9 +21,9 @@ class TasksController < ApplicationController
 
   def new
     if params[:back]
-      @task = Task.new(task_params)
+      @task = current_user.tasks.build(task_params)
     else
-      @task = Task.new
+      @task = current_user.tasks.build
     end
   end
 
@@ -34,7 +31,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     else
@@ -70,6 +67,11 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def back_to_index
+    # 自分以外のユーザーが編集・削除しようとするとタスク一覧画面に遷移
+    redirect_to tasks_path if current_user != @user
   end
 
 end

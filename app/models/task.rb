@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  belongs_to :user
+
   validates :title, presence: true
   validates :summary, presence: true
 
@@ -10,6 +12,7 @@ class Task < ApplicationRecord
   # フィルター
   scope :title_like, -> (query) { where("title LIKE ?", '%' + query + '%' ) }
   scope :status, -> (query){ where(status: query) }
+  scope :my_task, -> (query){ where(user_id: query)}
   
   enum status: {
     untouched: 0,    # 未対応

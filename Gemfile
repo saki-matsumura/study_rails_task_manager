@@ -24,6 +24,9 @@ gem 'enum_help'
 # 追加：ページテーション
 gem 'kaminari'
 
+# 追加：ログインシステム
+gem 'bcrypt'
+
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 
@@ -32,7 +35,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "launchy"
-
+  # テストデバッグ
   # gem "pry-rails"
 end
 

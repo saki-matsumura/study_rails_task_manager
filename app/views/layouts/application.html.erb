@@ -16,14 +16,28 @@
     <header>
     <div class="global_menu">
     <h1 class="app_title"><%= link_to 'TaskManager', tasks_path %></h1>
+    
     <nav>
       <ul>
-        <li><%= link_to 'タスク登録', new_task_path %></li>
-        <li><%= link_to 'タスク一覧', tasks_path %></li>
+        <% if logged_in? %>
+          <% if admin? %>
+            <li><%= link_to 'ユーザー管理', admin_users_path, class: "link_color" %></li>
+          <% end %>
+          <li><%= link_to 'タスク登録', new_task_path %></li>
+          <li><%= link_to 'タスク一覧', tasks_path %></li>
+          <li><%= link_to 'マイページ', user_path(current_user.id) %></li>
+          <li><%= link_to 'ログアウト', session_path(current_user.id), method: :delete %></li>
+        <% else %>
+          <li><%= link_to 'サインアップ', new_user_path %></li>
+          <li><%= link_to 'ログイン', new_session_path %></li>
+        <% end %>
       </ul>
     </nav>
     </div>
     </header>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
     <div class="contents">
       <%= yield %>
     </div>

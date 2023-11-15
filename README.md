@@ -10,6 +10,15 @@ task
 | deadline | date |
 | status | integer |
 | priority | integer |
+| user_id | bigint |
+
+user
+| カラム名 | データ型 |
+----|----
+| name | string |
+| email | string |
+| password | string |
+| roll | integer |
 
 ## デプロイ方法
 - Herokuのバージョンを20へ切り替える
