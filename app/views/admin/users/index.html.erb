@@ -16,10 +16,11 @@
       <td><%= user.email %></td>
       <td><%= user.roll_i18n %></td>
       <td><%= user.tasks.count %></td>
-      <td class="user_nav"><%= link_to '詳細', admin_user_path(user.id), class: "btn btn-outline-primary" %></td>
-      <td class="user_nav"><%= link_to '編集', edit_admin_user_path(user.id), class: "btn btn-outline-success" %></td>
-      <td class="user_nav"><%= link_to '削除', admin_user_path(user.id), method: :delete ,data: { confirm: "本当に#{user.name}を削除してよろしですか？"}, class: "btn btn-outline-danger" %></td>
+      <td class="task_nav"><%= link_to '詳細', admin_user_path(user.id), class: "btn btn-outline-primary" %></td>
+      <td class="task_nav"><%= link_to '編集', edit_admin_user_path(user.id), class: "btn btn-outline-success" %></td>
+      <td class="task_nav"><%= link_to '削除', admin_user_path(user.id), method: :delete ,data: { confirm: "本当に#{user.name}を削除してよろしですか？"}, class: "btn btn-outline-danger" %></td>
     </tr>
     <% end %>
   </table>
+  <%= paginate @users %>
 </div>
