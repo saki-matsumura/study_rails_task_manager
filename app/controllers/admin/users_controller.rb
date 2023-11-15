@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :exclude_general
+  # before_action :exclude_general
   
   def index
     @users = User.all.page(params[:page])
@@ -51,7 +51,7 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user.destroy
     redirect_to admin_users_path
-    if User.where(roll: 'admin').count == 1
+    if User.where(roll: 'admin').count == 1 && @user.roll == 'admin'
       flash[:notice] = "管理者がいなくなるため、削除できませんでした"
     else
       flash[:notice] = "ユーザーを削除しました" 

@@ -4,7 +4,7 @@
 <p>メールアドレス: <%= @user.email %></p>
 <p>権限: <%= @user.roll_i18n %></p>
 
-<%= link_to 'ユーザー編集', edit_user_path(@user.id), class: "btn btn-outline-success" %>
+<%= link_to 'ユーザー編集', edit_admin_user_path(@user.id), class: "btn btn-outline-success" %>
 
 <div class="bottom_menu">
 <p>

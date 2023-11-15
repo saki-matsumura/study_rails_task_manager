@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+
+  before_create :overwrite_roll_admin
+  before_update :reject_update
+  before_destroy :reject_destroy
+
   has_many :tasks, dependent: :destroy
   accepts_nested_attributes_for :tasks,
    allow_destroy: true
@@ -16,17 +21,17 @@ class User < ApplicationRecord
     admin: 1,    # 管理者
   }
 
-  before_create :overwrite_roll_admin
-  before_update :reject
-  before_destroy :reject
-
   private
 
   def overwrite_roll_admin
     self.roll = 'admin' if User.where(roll: 'admin').count.zero?
   end
 
-  def reject
-    throw :abort if User.where(roll: 'admin').count == 1
+  def reject_update
+    throw(:abort) if self.roll_change_to_be_saved == ['admin', 'general'] && User.where(roll: 'admin').count == 1
+  end
+  
+  def reject_destroy
+    throw(:abort) if self.roll == 'admin' && User.where(roll: 'admin').count == 1
   end
 end
