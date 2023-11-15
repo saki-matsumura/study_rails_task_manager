@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :exclude_general
   
   def index
@@ -8,19 +8,19 @@ class Admin::UsersController < ApplicationController
   
   def new
     if params[:back]
-      @users = User.new(user_params)
+      @user = User.new(user_params)
     else
-      @users = User.new
+      @user = User.new
     end
   end
 
   def create
-    @users = User.new(user_params)
+    @user = User.new(user_params)
     if params[:back]
       render :new
     else
       if @users.save
-        redirect_to user_path(@users), notice: "新規ユーザーを登録しました"
+        redirect_to admin_user_path(@users), notice: "新規ユーザーを登録しました"
       else
         render :new
       end
@@ -49,8 +49,13 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @users.destroy
-    redirect_to admin_users_path, notice: "ユーザーを削除しました"
+    @user.destroy
+    redirect_to admin_users_path
+    if User.where(roll: 'admin').count == 1
+      flash[:notice] = "管理者がいなくなるため、削除できませんでした"
+    else
+      flash[:notice] = "ユーザーを削除しました" 
+    end
   end
 
   private

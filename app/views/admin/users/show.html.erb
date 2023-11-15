@@ -1,6 +1,7 @@
 <h1><%= @user.name %>のページ</h1>
 
 <p>メールアドレス: <%= @user.email %></p>
+<p>権限: <%= @user.roll_i18n %></p>
 
 <%= link_to 'ユーザー編集', edit_user_path(@user.id), class: "btn btn-outline-success" %>
 

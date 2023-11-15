@@ -11,4 +11,9 @@ module Admin::UsersHelper
       admin_user_path
     end
   end
+
+  def admin_zero?
+    return false unless User.where(roll: 'admin').zero?
+    true
+  end
 end

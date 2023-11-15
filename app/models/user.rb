@@ -15,4 +15,18 @@ class User < ApplicationRecord
     general: 0,  # 一般
     admin: 1,    # 管理者
   }
+
+  before_create :overwrite_roll_admin
+  before_update :reject
+  before_destroy :reject
+
+  private
+
+  def overwrite_roll_admin
+    self.roll = 'admin' if User.where(roll: 'admin').count.zero?
+  end
+
+  def reject
+    throw :abort if User.where(roll: 'admin').count == 1
+  end
 end
