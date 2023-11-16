@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   
   def index
     @tasks = Task.all.default
+    @labels = Label.all
     
     # ソート
     @tasks = Task.all.deadline if params[:deadline]
@@ -20,6 +21,7 @@ class TasksController < ApplicationController
   end
 
   def new
+    @labels = Label.all
     if params[:back]
       @task = current_user.tasks.build(task_params)
     else
@@ -62,7 +64,8 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :summary, :deadline, :status, :priority)
+    params.require(:task).permit(:title, :summary, :deadline, :status, :priority,
+                                 { label_ids: [] })
   end
 
   def set_task
@@ -71,7 +74,9 @@ class TasksController < ApplicationController
 
   def back_to_index
     # 自分以外のユーザーが編集・削除しようとするとタスク一覧画面に遷移
-    redirect_to tasks_path if current_user != @user
+     if current_user != @task.user
+      redirect_to tasks_path
+     end
   end
 
 end
