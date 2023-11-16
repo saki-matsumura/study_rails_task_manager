@@ -20,6 +20,17 @@ user
 | password | string |
 | roll | integer |
 
+label
+| カラム名 | データ型 |
+----|----
+| title | string |
+
+labeling
+| カラム名 | データ型 |
+----|----
+| task_id | bigint |
+| label_id | bigint |
+
 ## デプロイ方法
 - Herokuのバージョンを20へ切り替える
     - heroku stack:set heroku-20
