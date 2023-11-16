@@ -1,6 +1,6 @@
-<p><b>タイトル</b><br>
-<%= @task.title%></p>
-<p><b>概要</b><br>
+<h2><%= @task.title%></h2>
+<br>
+<p><b>概要：</b>
 <%= @task.summary %></p>
 <p><b>終了期限：</b>
 <%= @task.deadline %></p>
@@ -8,7 +8,7 @@
 <%= @task.status_i18n %></p>
 <p><b>優先度：</b>
 <%= @task.priority_i18n %></p>
-<p><b>ラベル</b><br>
+<p><b>ラベル：</b>
 <% @task.labelings.each_with_index do | labeling, i |%>
   <% if i == @task.labelings.size - 1 %> 
     <%= labeling.label.title %> 

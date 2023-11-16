@@ -3,6 +3,7 @@
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
   <p>タイトル <%= form.text_field :title_like %>　
   ステータス <%= form.select(:status, Task.statuses_i18n.invert, {include_blank: true}) %>　
+  ラベル <%= form.select(:label_id, Label.all.collect { |p| [ p.title, p.id ] }, include_blank: true ) %>　
   <%= form.submit '検索', name: 'search' %></p>
 <% end %>
 

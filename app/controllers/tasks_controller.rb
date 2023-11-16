@@ -14,6 +14,7 @@ class TasksController < ApplicationController
       @tasks = Task.all.default
       @tasks = @tasks.title_like(params[:title_like]) if params[:title_like].present?
       @tasks = @tasks.status(params[:status]) if params[:status].present?
+      @tasks = @tasks.label_id(params[:label_id]) if params[:label_id].present?
     end
     
     @tasks = @tasks.page(params[:page])

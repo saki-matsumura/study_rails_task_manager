@@ -30,8 +30,11 @@
   <%= form.select(:priority, Task.priorities_i18n.invert, {}, include_blank: true) %> 
   </p>
 
+  <div class = "labels">
   <p><b>ラベル：</b>
-  <%= form.collection_check_boxes(:label_ids, Label.all, :id, :title, class: "task_label")%></p>
+  <%= form.collection_check_boxes(:label_ids, Label.all, :id, :title)%>
+  </p>
+  </div>
 
   <%= form.submit %>
 <% end %>
