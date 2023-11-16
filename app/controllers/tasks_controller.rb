@@ -4,7 +4,6 @@ class TasksController < ApplicationController
   
   def index
     @tasks = Task.all.default
-    @labels = Label.all
     
     # ソート
     @tasks = Task.all.deadline if params[:deadline]
@@ -21,7 +20,6 @@ class TasksController < ApplicationController
   end
 
   def new
-    @labels = Label.all
     if params[:back]
       @task = current_user.tasks.build(task_params)
     else

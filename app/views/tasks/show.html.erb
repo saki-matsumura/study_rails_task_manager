@@ -8,6 +8,14 @@
 <%= @task.status_i18n %></p>
 <p><b>優先度：</b>
 <%= @task.priority_i18n %></p>
+<p><b>ラベル</b><br>
+<% @task.labelings.each_with_index do | labeling, i |%>
+  <% if i == @task.labelings.size - 1 %> 
+    <%= labeling.label.title %> 
+  <% else %>
+    <%= labeling.label.title %>, 
+  <% end %>
+<% end %></p>
 
 <div class="bottom_menu">
 <p>
