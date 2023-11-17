@@ -13,7 +13,7 @@ class Task < ApplicationRecord
 
   # フィルター
   scope :my_task, -> (query){ where(user_id: query)}
-  scope :title_like, -> (query) { where("title LIKE ?", '%' + query + '%' ) }
+  scope :title_like, -> (query) { where("tasks.title LIKE ?", '%' + query + '%' ) }
   scope :status, -> (query){ where(status: query) }
   scope :label_id, -> (query){ 
     joins(:labels).where('labels.id = ?', query) 

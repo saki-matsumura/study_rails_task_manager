@@ -9,18 +9,24 @@ RSpec.describe 'タスク管理機能', type: :system do
           password: 'password1',
           roll: 'admin'
         )
+      # 2.times do |n|
+      # FactoryBot.create(
+      #   :label_system_spec,
+      #     "system_label-#{n}"
+      # )
+      # end
       visit new_session_path
       login(@user)
     end
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
-        
         # タスクを新規作成する
         visit new_task_path
         fill_in 'task[title]', with: 'task_title'
         fill_in 'task[summary]', with: 'task_summary'
         fill_in 'task[deadline]', with: '002023-11-01'
         select '未対応', from: 'ステータス'
+        # check 'system_label-1'
         
         click_on '登録する'
         # ページにタスク名と概要が表示されるか確認
@@ -28,6 +34,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'task_summary'
         expect(page).to have_content '2023-11-01'
         expect(page).to have_content '未対応'
+        # expect(page).to have_content 'system_label-1'
       end
     end
   end
