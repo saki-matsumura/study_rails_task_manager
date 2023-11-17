@@ -26,8 +26,8 @@ RSpec.describe Task, type: :model do
     end
   end
   describe '検索機能のテスト' do
-    let!(:task) { FactoryBot.create(:task, title: 'task', status: 'in_progress', user_id: @user.id) }
-    let!(:second_task) { FactoryBot.create(:second_task, title: 'sample', status: 'done', user_id: @user.id) }
+    let!(:task) { FactoryBot.create(:task, title: 'task', status: 'in_progress', user_id: @user.id ) }
+    let!(:second_task) { FactoryBot.create(:second_task, title: 'sample', status: 'done', user_id: @user.id )}
     context 'scopeメソッドでタイトルのあいまい検索をした場合' do
       it "検索キーワードを含むタスクが絞り込まれる" do
         expect(Task.title_like('task')).to include(task)
@@ -47,6 +47,38 @@ RSpec.describe Task, type: :model do
         expect(Task.title_like('task').status('in_progress')).to include(task)
         expect(Task.title_like('task').status('in_progress')).not_to include(second_task)
         expect(Task.title_like('task').status('in_progress').count).to eq 1
+      end
+    end
+    context 'scopeメソッドでラベル検索をした場合' do
+      it "条件に完全一致するタスク絞り込まれる" do
+        target_id = task.labels.ids
+        expect(Task.label_id(target_id)).to include(task)
+        expect(Task.label_id(target_id)).not_to include(second_task)
+        expect(Task.label_id(target_id).count).to eq 1
+      end
+    end
+    context 'scopeメソッドでタイトルのあいまい検索とラベル検索をした場合' do
+      it "条件に完全一致するタスク絞り込まれる" do
+        target_id = task.labels.ids
+        expect(Task.title_like('task').label_id(target_id)).to include(task)
+        expect(Task.title_like('task').label_id(target_id)).not_to include(second_task)
+        expect(Task.title_like('task').label_id(target_id).count).to eq 1
+      end
+    end
+    context 'scopeメソッドでステータス検索とラベル検索をした場合' do
+      it "条件に完全一致するタスク絞り込まれる" do
+        target_id = task.labels.ids
+        expect(Task.status('in_progress').label_id(target_id)).to include(task)
+        expect(Task.status('in_progress').label_id(target_id)).not_to include(second_task)
+        expect(Task.status('in_progress').label_id(target_id).count).to eq 1
+      end
+    end
+    context 'scopeメソッドでタイトル、ステータス、ラベル検索をした場合' do
+      it "条件に完全一致するタスク絞り込まれる" do
+        target_id = task.labels.ids
+        expect(Task.title_like('task').status('in_progress').label_id(target_id)).to include(task)
+        expect(Task.title_like('task').status('in_progress').label_id(target_id)).not_to include(second_task)
+        expect(Task.title_like('task').status('in_progress').label_id(target_id).count).to eq 1
       end
     end
   end

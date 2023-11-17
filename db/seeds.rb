@@ -14,3 +14,8 @@
                password: password,
                )
 end
+
+Label.create!(title: "開発")
+Label.create!(title: "β版")
+Label.create!(title: "α版")
+Label.create!(title: "マスター版")

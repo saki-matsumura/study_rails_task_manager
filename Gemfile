@@ -17,6 +17,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 gem "net-smtp"
 gem "net-imap"
 gem "net-pop"
+gem "faker"  # 移動：Herokuでフェイカーを使用できるようにする
 
 # 追加：enum用
 gem 'enum_help'
@@ -33,7 +34,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "spring-commands-rspec"
   gem "factory_bot_rails"
-  gem "faker"
+  # gem "faker"
   gem "launchy"
   # テストデバッグ
   # gem "pry-rails"

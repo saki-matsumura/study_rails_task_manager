@@ -14,6 +14,7 @@ class TasksController < ApplicationController
       @tasks = Task.all.default
       @tasks = @tasks.title_like(params[:title_like]) if params[:title_like].present?
       @tasks = @tasks.status(params[:status]) if params[:status].present?
+      @tasks = @tasks.label_id(params[:label_id]) if params[:label_id].present?
     end
     
     @tasks = @tasks.page(params[:page])
@@ -62,7 +63,8 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :summary, :deadline, :status, :priority)
+    params.require(:task).permit(:title, :summary, :deadline, :status, :priority,
+                                 { label_ids: [] })
   end
 
   def set_task
@@ -71,7 +73,9 @@ class TasksController < ApplicationController
 
   def back_to_index
     # 自分以外のユーザーが編集・削除しようとするとタスク一覧画面に遷移
-    redirect_to tasks_path if current_user != @user
+     if current_user != @task.user
+      redirect_to tasks_path
+     end
   end
 
 end

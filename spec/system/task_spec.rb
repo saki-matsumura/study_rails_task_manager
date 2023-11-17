@@ -9,18 +9,24 @@ RSpec.describe 'タスク管理機能', type: :system do
           password: 'password1',
           roll: 'admin'
         )
+      2.times do |n|
+      FactoryBot.create(
+        :label_system_spec,
+          title: "system_label-#{n}"
+      )
+      end
       visit new_session_path
       login(@user)
     end
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
-        
         # タスクを新規作成する
         visit new_task_path
         fill_in 'task[title]', with: 'task_title'
         fill_in 'task[summary]', with: 'task_summary'
         fill_in 'task[deadline]', with: '002023-11-01'
         select '未対応', from: 'ステータス'
+        check 'system_label-0'
         
         click_on '登録する'
         # ページにタスク名と概要が表示されるか確認
@@ -28,6 +34,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'task_summary'
         expect(page).to have_content '2023-11-01'
         expect(page).to have_content '未対応'
+        expect(page).to have_content 'system_label-0'
       end
     end
   end
@@ -40,7 +47,12 @@ RSpec.describe 'タスク管理機能', type: :system do
           password: 'password1',
           roll: 'admin'
         )
-
+      2.times do |n|
+      FactoryBot.create(
+        :label_system_spec,
+          title: "system_label-#{n}"
+      )
+      end
       visit new_session_path
       login(@user)
 
@@ -147,6 +159,58 @@ RSpec.describe 'タスク管理機能', type: :system do
         task_list.each do |task|
           expect(task).to have_content 'search'
           expect(task).to have_content '進行中'
+        end
+      end
+    end
+    context '特定のラベルを選択して「検索」ボタンを押した場合' do
+      it '条件に一致するタスクのみ表示される' do
+        visit tasks_path
+        select 'label-1', from: 'label_id'
+        click_on '検索'
+        sleep 1
+        task_list = all('.task_row')
+        task_list.each do |task|
+          expect(task).to have_content 'label-1'
+        end
+      end
+    end
+    context '検索ワードを入力し、特定のラベルを選択して「検索」ボタンを押した場合' do
+      it '条件に一致するタスクのみ表示される' do
+        visit tasks_path
+        fill_in 'title_like', with: 'task_title1'
+        select 'label-1', from: 'label_id'
+        click_on '検索'
+        sleep 1
+        task_list = all('.task_row')
+        task_list.each do |task|
+          expect(task).to have_content 'label-1'
+        end
+      end
+    end
+    context 'ステータスとラベルを選択して「検索」ボタンを押した場合' do
+      it '条件に一致するタスクのみ表示される' do
+        visit tasks_path
+        select '未対応', from: 'status'
+        select 'label-1', from: 'label_id'
+        click_on '検索'
+        sleep 1
+        task_list = all('.task_row')
+        task_list.each do |task|
+          expect(task).to have_content 'label-1'
+        end
+      end
+    end
+    context '検索ワードを入力し、ステータスとラベルを選択して「検索」ボタンを押した場合' do
+      it '条件に一致するタスクのみ表示される' do
+        visit tasks_path
+        fill_in 'title_like', with: 'task_title1'
+        select '未対応', from: 'status'
+        select 'label-1', from: 'label_id'
+        click_on '検索'
+        sleep 1
+        task_list = all('.task_row')
+        task_list.each do |task|
+          expect(task).to have_content 'label-1'
         end
       end
     end

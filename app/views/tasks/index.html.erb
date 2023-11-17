@@ -3,6 +3,7 @@
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
   <p>タイトル <%= form.text_field :title_like %>　
   ステータス <%= form.select(:status, Task.statuses_i18n.invert, {include_blank: true}) %>　
+  ラベル <%= form.select(:label_id, Label.all.collect { |p| [ p.title, p.id ] }, include_blank: true ) %>　
   <%= form.submit '検索', name: 'search' %></p>
 <% end %>
 
@@ -16,6 +17,7 @@
     <th>ステータス</th>
     <th><%= link_to "優先度", tasks_path(priority: "true"), class: "link_color" %></th>
     <th>作成者</th>
+    <th>ラベル</th>
   </tr>
   <% @tasks.each do | task | %>
   <tr class = "task_row" >
@@ -25,6 +27,11 @@
     <td><%= task.status_i18n %></td>
     <td><%= task.priority_i18n %></td>
     <td><%= task.user.name %></td>
+    <td>
+      <% task.labelings.each do | labeling | %>
+        <%= labeling.label.title %><br>
+      <% end %>
+    </td>
     <td class="task_nav"><%= link_to '詳細', task_path(task.id), class: "btn btn-outline-primary" %></td>
     <% if task.user_id == current_user.id %>
       <td class="task_nav"><%= link_to '編集', edit_task_path(task.id), class: "btn btn-outline-success" %></td>
