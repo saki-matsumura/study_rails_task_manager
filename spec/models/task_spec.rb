@@ -49,7 +49,6 @@ RSpec.describe Task, type: :model do
         expect(Task.title_like('task').status('in_progress').count).to eq 1
       end
     end
-    #  - - - - - - - - - - - - - - - - - - - - - - - 
     context 'scopeメソッドでラベル検索をした場合' do
       it "条件に完全一致するタスク絞り込まれる" do
         target_id = task.labels.ids
@@ -64,20 +63,6 @@ RSpec.describe Task, type: :model do
         expect(Task.title_like('task').label_id(target_id)).to include(task)
         expect(Task.title_like('task').label_id(target_id)).not_to include(second_task)
         expect(Task.title_like('task').label_id(target_id).count).to eq 1
-        
-        
-        # label_id = Label.find_by(title: "label-1").id
-        # target_id = task.labels.ids
-        # expect(Task.title_like('task').label_id(target_id)).to include(task)
-
-
-        # target_id = Label.find_by(title: "label-1")
-        # binding.irb
-        # expect(Task.title_like('task').label_id(Label.find_by(title: "label-1").id)).to include(task)
-        # label_id = Label.find_by(title: "label-1").id
-        # target_id = task.labels.id
-        # expect(Task.title_like('task').label_id(target_id)).not_to include(second_task)
-        # expect(Task.title_like('task').label_id(target_id).count).to eq 1
       end
     end
     context 'scopeメソッドでステータス検索とラベル検索をした場合' do
@@ -96,8 +81,5 @@ RSpec.describe Task, type: :model do
         expect(Task.title_like('task').status('in_progress').label_id(target_id).count).to eq 1
       end
     end
-    #  - - - - - - - - - - - - - - - - - - - - - - - 
-
-
   end
 end

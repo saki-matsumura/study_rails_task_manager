@@ -36,6 +36,7 @@ class TasksController < ApplicationController
     if params[:back]
       render :new
     else
+      # binding.pry
       if @task.save
         redirect_to task_path(@task), notice: "タスクを作成しました"
       else
